@@ -58,7 +58,8 @@ jobs:
             ]
           }' > Dockerrun.aws.json
 
-      # TODO clear
-      - name: Display Dockerrun.aws.json content
+      - name: Deploy to Elastic Beanstalk
         run: |
-          cat Dockerrun.aws.json
+          eb init -p docker Kcs-task-13-app-t2 --region ap-northeast-2
+          eb use Kcs-task-13-app-t2-env
+          eb deploy
