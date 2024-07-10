@@ -15,10 +15,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install AWS Elastic Beanstalk CLI
-        run: |
-          pip install awsebcli
-
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -47,7 +43,7 @@ jobs:
         uses: josStorer/get-current-time@v2
         id: current-time
         with:
-          format: YYYYMMDD_HH-mm-ss
+          format: YYYY-MM-DD_HH:mm:ss
           utcOffset: "+09:00"
 
       - name: Create Dockerrun.aws.json file and compress
@@ -78,4 +74,3 @@ jobs:
           version_label: earth-docker-${{steps.current-time.outputs.formattedTime}}
           region: ap-northeast-2
           deployment_package: deploy/deploy.zip
-          # wait_for_environment_recovery: 200
