@@ -8,6 +8,6 @@ public class Controller {
 
     @GetMapping("/")
     public String method() {
-        return "KCS-task-13-noah, Hello, world!";
+        return "노아 깃허브 액션으로 자동 배포 성공!";
     }
 }
