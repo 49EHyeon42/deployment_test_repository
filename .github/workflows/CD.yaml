@@ -18,7 +18,7 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          aws-region: us-east-1
+          aws-region: ${{ secrets.AWS_REGION }}
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
@@ -69,8 +69,8 @@ jobs:
         with:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          application_name: Kcs-task-13-app-t4
-          environment_name: Kcs-task-13-app-t4-env
+          application_name: ${{ secrets.AWS_EB_APPLICATION_NAME }}
+          environment_name: ${{ secrets.AWS_EB_ENVIRONMENT_NAME }}
           version_label: earth-docker-${{steps.current-time.outputs.formattedTime}}
-          region: ap-northeast-2
+          region: ap-northeast-2 ${{ secrets.AWS_EB_REGION }}
           deployment_package: deploy/deploy.zip
