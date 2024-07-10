@@ -55,10 +55,10 @@ jobs:
           mkdir deploy
           cd deploy
           echo '{
-            "AWSEBDockerrunVersion": 1,
+            "AWSEBDockerrunVersion": "1",
             "Image": {
               "Name": "${{ steps.login-ecr.outputs.registry }}/${{ secrets.ECR_REPOSITORY }}:${{ github.sha }}",
-              "Update": true
+              "Update": "true"
             },
             "Ports": [
               {
@@ -67,5 +67,15 @@ jobs:
             ]
           }' > Dockerrun.aws.json
           zip -r deploy.zip .
-          # TODO clear
-          ls
+
+      - name: Beanstalk Deploy
+        uses: einaregilsson/beanstalk-deploy@v14
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          application_name: Kcs-task-13-app-t4
+          environment_name: Kcs-task-13-app-t4-env
+          version_label: earth-docker-${{steps.current-time.outputs.formattedTime}}
+          region: ap-northeast-2
+          deployment_package: deploy/deploy.zip
+          # wait_for_environment_recovery: 200
