@@ -8,6 +8,6 @@ public class Controller {
 
     @GetMapping("/")
     public String method() {
-        return "노아 롤링 배포 성공!";
+        return "배포 2";
     }
 }
